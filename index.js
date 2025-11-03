@@ -71,28 +71,28 @@ app.use(cors(corsOptions));
 //   }
 // })
 
-// async function deleteHotel(hotelId) {
-//   try {
-//     const deletedHotel = await Hotel.findByIdAndDelete(hotelId)
-//     return deletedHotel
-//   } catch (error) {
-//     throw error
-//   }
-// }
+async function deleteHotel(hotelId) {
+  try {
+    const deletedHotel = await Hotel.findByIdAndDelete(hotelId)
+    return deletedHotel
+  } catch (error) {
+    throw error
+  }
+}
 
-// app.delete("/hotels/:hotelId", async (req, res) => {
-//   try {
-//     const deletedHotel = await deleteHotel(req.params.hotelId)
-//     res
-//       .status(200)
-//       .json({
-//         error: "Hotel deleted successfully.",
-//         deletedHotel: deletedHotel,
-//       })
-//   } catch (error) {
-//     res.status(500).json({ error: "Failed to delete hotel. " })
-//   }
-// })
+app.delete("/hotels/:hotelId", async (req, res) => {
+  try {
+    const deletedHotel = await deleteHotel(req.params.hotelId)
+    res
+      .status(200)
+      .json({
+        error: "Hotel deleted successfully.",
+        deletedHotel: deletedHotel,
+      })
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete hotel. " })
+  }
+})
 
 async function updateHotel(hotelId, dataToUpdate) {
   try {
